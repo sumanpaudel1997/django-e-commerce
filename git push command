@@ -1,0 +1,7 @@
+git add .
+git commit -m ''
+git remote -v
+git remote add origin https://github.com/sumanpaudel1997/django-ecommerce
+git push origin main
+sumanpaudel1997
+psp
