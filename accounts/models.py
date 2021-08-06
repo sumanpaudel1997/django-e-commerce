@@ -7,7 +7,7 @@ class MyAccountManager(BaseUserManager):
             raise ValueError('Please enter an email address')
 
         if not username:
-            raise ValueError('Please enter an email address')
+            raise ValueError('Please enter an username')
     
         user=self.model(
             email=self.normalize_email(email),
@@ -20,13 +20,13 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, first_name,last_name,email,username,password=None):
+    def create_superuser(self, first_name,last_name,email,username,password):
         user=self.create_user(
             email=self.normalize_email(email),
-            username=username,
-            password=password,
             first_name=first_name,
             last_name=last_name,
+            password=password,
+            username=username,
         )
         user.is_admin=True
         user.is_active=True
@@ -52,8 +52,8 @@ class Account(AbstractBaseUser):
     is_superadmin=models.BooleanField(default=False)
     
     USERNAME_FIELD='email'
-    REQUIRED_FIELDS=['username','first_name','last_name']
-    object=MyAccountManager()
+    REQUIRED_FIELDS=['first_name','last_name','username']
+    objects=MyAccountManager()
     def __str__(self):
         return self.email
 
